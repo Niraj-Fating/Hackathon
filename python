@@ -1,0 +1,54 @@
+from flask import Flask, request, jsonify
+
+app = Flask(_name_)
+
+@app.route('/translate', methods=['POST'])
+def translate():
+    data = request.get_json()
+    english_text = data['english_text']
+    target_language = data['target_language']
+    
+    # Perform translation here (replace this with actual translation logic)
+    translated_text = translate_text(english_text, target_language)
+    
+    return jsonify({'translated_text': translated_text})
+
+def translate_text(text, target_language):
+    # Dictionary containing translations for different languages
+    translations = {
+        'hindi': {'hello': 'नमस्ते', 'goodbye': 'अलविदा'},
+        'bengali': {'hello': 'হ্যালো', 'goodbye': 'বিদায়'},
+        'tamil': {'hello': 'வணக்கம்', 'goodbye': 'குட்பை'},
+        'telugu': {'hello': 'హలో', 'goodbye': 'విడిచిపోవద్దు'},
+        'marathi': {'hello': 'नमस्ते', 'goodbye': 'आठवत नाही'},
+        'urdu': {'hello': 'ہیلو', 'goodbye': 'خدا حافظ'},
+        'gujarati': {'hello': 'નમસ્તે', 'goodbye': 'આવજો'},
+        'kannada': {'hello': 'ಹಲೋ', 'goodbye': 'ಹೋಗಿರಿ'},
+        'odia': {'hello': 'ନମସ୍କାର', 'goodbye': 'ବାଇବାଦାଓଂ'},
+        'punjabi': {'hello': 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ', 'goodbye': 'ਅੱਜ ਵੱਲੋਂ ਚਲੋ ਫੱਟੀ'},
+        'malayalam': {'hello': 'ഹലോ', 'goodbye': 'വിട്ടാൽ പറയുക'},
+        'sanskrit': {'hello': 'नमस्कारः', 'goodbye': 'पुनर्मिलामः'},
+        'santali': {'hello': 'ᱪᱟᱵᱽ', 'goodbye': 'ᱦᱟᱨᱚᱯᱟᱞᱤᱞᱮ'},
+        'nepali': {'hello': 'नमस्कार', 'goodbye': 'फेरि मिलनुहोस्'},
+        'konkani': {'hello': 'हॅलो', 'goodbye': 'पडदल्लय'},
+        'manipuri': {'hello': '헬로', 'goodbye': 'Goodbye'},
+        'kashmiri': {'hello': 'ہیلو', 'goodbye': 'خدا حافظ'},
+        'sindhi': {'hello': 'هيلو', 'goodbye': 'خدا حافظ'},
+        'assamese': {'hello': 'নমস্কাৰ', 'goodbye': 'বিদায়'},
+        'bhojpuri': {'hello': 'नमस्ते', 'goodbye': 'अलविदा'},
+        'bodo': {'hello': 'নামস্কাৰ', 'goodbye': 'বিদায়'}
+        # Add translations for other languages here
+    }
+    
+    # Check if target language is available in translations dictionary
+    if target_language in translations:
+        # Check if the text is available in translations for the target language
+        if text in translations[target_language]:
+            return translations[target_language][text]
+        else:
+            return 'Translation not available for this text in ' + target_language
+    else:
+        return 'Translation not available for this language'
+
+if _name_ == '_main_':
+    app.run(debug=True)
